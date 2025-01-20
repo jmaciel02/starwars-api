@@ -13,15 +13,36 @@ CREATE TABLE IF NOT EXISTS api_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Data e hora do registro',
     INDEX idx_endpoint (endpoint),
     INDEX idx_created_at (created_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Logs de requisições à API';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabela de cache (opcional, para otimização)
-CREATE TABLE IF NOT EXISTS api_cache (
+-- Tabela de favoritos
+CREATE TABLE IF NOT EXISTS favorites (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    cache_key VARCHAR(255) NOT NULL COMMENT 'Chave única do cache',
-    cache_value TEXT NOT NULL COMMENT 'Valor em cache',
-    expires_at TIMESTAMP NOT NULL COMMENT 'Data de expiração',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Data de criação',
-    UNIQUE KEY unique_cache_key (cache_key),
-    INDEX idx_expires_at (expires_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Cache de respostas da API'; 
+    film_id INT NOT NULL,
+    film_title VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_film_id (film_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Tabela de cache inteligente
+CREATE TABLE IF NOT EXISTS smart_cache (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cache_key VARCHAR(255) NOT NULL,
+    cache_value TEXT NOT NULL,
+    cache_type VARCHAR(50) NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    hits INT DEFAULT 0,
+    last_accessed TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_cache_key (cache_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Tabela de estatísticas
+CREATE TABLE IF NOT EXISTS statistics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(50) NOT NULL COMMENT 'Tipo do evento (api_call, cache_hit, cache_miss, error)',
+    details JSON COMMENT 'Detalhes do evento em formato JSON',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_statistics_type (type),
+    INDEX idx_statistics_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
