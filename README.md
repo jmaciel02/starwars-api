@@ -13,8 +13,8 @@ Uma aplicação web para exibir informações sobre os filmes de Star Wars, util
 
 1. Clone o repositório:
 ```bash
-git clone https://seu-repositorio/star-wars-catalog.git
-cd star-wars-catalog
+https://github.com/jmaciel02/starwars-api.git
+cd starwars-api
 ```
 
 2. Inicie os containers:
@@ -32,7 +32,8 @@ http://localhost:8080
 1. Clone o repositório na pasta htdocs do XAMPP:
 ```bash
 cd C:\xampp\htdocs
-git clone https://seu-repositorio/star-wars-catalog.git
+git clone https://github.com/jmaciel02/starwars-api.git
+cd starwars-api
 ```
 
 2. Configure o Virtual Host:
@@ -60,24 +61,37 @@ http://star-wars.local
 ## Estrutura do Projeto
 
 ```
-.
+project/
 ├── app/
-│   ├── Controllers/    # Controladores da aplicação
-│   ├── Models/         # Modelos de dados
-│   ├── Services/       # Serviços e lógica de negócio
-│   ├── Repositories/   # Camada de acesso a dados
-│   └── Helpers/        # Classes auxiliares
-├── config/            # Arquivos de configuração
-├── database/         # Schemas e migrations
-├── docker/          # Arquivos de configuração Docker
-├── public/           # Arquivos públicos (ponto de entrada)
+│   ├── Contracts/       # Contratos de interfaces
+│   ├── Controllers/     # Controladores da aplicação 
+│   ├── Helpers/         # Classes auxiliares
+│   ├── Models/          # Modelos de dados
+│   ├── Repositories/    # Camada de acesso a dados
+│   └── Services/        # Serviços e lógica de negócio
+├── config/              # Arquivos de configuração
+├── database/            # Arquivos de configuração do banco de dados
+│   ├── schema.sql       # Esquema do banco de dados
+│   ├── setup.sh         # Script de instalação Linux/Mac
+│   ├── setup-docker.bat # Script de instalação Windows   
+│   └── setup.bat        # Script de instalação Windows
+├── docker/              # Arquivos de configuração Docker   
+├── docs/                # Documentação do projeto
+│   ├── INSTALL.md       # Instruções de instalação
+│   ├── API.md           # Documentação da API
+│   └── FEATURES.md      # Melhorias implementadas
+│   └── README.md        # Visão geral e guia rápido
+├── logs/                # Logs da aplicação
+├── public/              # Arquivos públicos (ponto de entrada)
 │   ├── css/
 │   ├── js/
 │   └── index.php
-├── resources/        # Views e assets
+├── resources/           # Views e assets
 │   └── views/
-├── routes/           # Definições de rotas
-└── logs/            # Logs da aplicação
+├── routes/              # Definições de rotas
+├── tests/               # Testes da aplicação
+├── xampp/               # Instruções de configuração XAMPP
+
 
 ## Troubleshooting
 
