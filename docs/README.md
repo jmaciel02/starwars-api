@@ -156,7 +156,7 @@ cd starwars-api
 ```
 
 2. Configure o banco de dados
-- Importe `database/install.sql`
+- Importe `database/schema.sql`
 - Configure `config/database.php`
 
 3. Configure o servidor web
