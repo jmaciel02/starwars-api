@@ -9,7 +9,7 @@ Este projeto é um catálogo de filmes Star Wars que consome a SWAPI (Star Wars 
 - PHP 7.4+
 - MySQL 5.7+
 - PDO para conexão com banco de dados
-- Composer para autoload de classes
+
 
 ### Frontend
 - HTML5
@@ -84,24 +84,34 @@ Este projeto é um catálogo de filmes Star Wars que consome a SWAPI (Star Wars 
 ```
 project/
 ├── app/
-│   ├── Controllers/    # Controladores da aplicação
-│   ├── Models/         # Models e entidades
-│   ├── Repositories/   # Camada de acesso a dados
-│   ├── Helpers/        # Classes utilitárias
-│   └── Services/       # Serviços da aplicação
-├── config/             # Arquivos de configuração
-├── database/          
-│   ├── migrations/     # Scripts de migração
-│   └── setup.sql      # Script inicial do banco
-├── public/            
-│   ├── css/           # Arquivos CSS
-│   ├── js/            # Arquivos JavaScript
-│   └── index.php      # Ponto de entrada
-├── resources/
-│   └── views/         # Templates e views
-├── routes/            # Definição de rotas
-├── logs/              # Logs da aplicação
-└── vendor/            # Dependências
+│   ├── Contracts/       # Contratos de interfaces
+│   ├── Controllers/     # Controladores da aplicação 
+│   ├── Helpers/         # Classes auxiliares
+│   ├── Models/          # Modelos de dados
+│   ├── Repositories/    # Camada de acesso a dados
+│   └── Services/        # Serviços e lógica de negócio
+├── config/              # Arquivos de configuração
+├── database/            # Arquivos de configuração do banco de dados
+│   ├── schema.sql       # Esquema do banco de dados
+│   ├── setup.sh         # Script de instalação Linux/Mac
+│   ├── setup-docker.bat # Script de instalação Windows   
+│   └── setup.bat        # Script de instalação Windows
+├── docker/              # Arquivos de configuração Docker   
+├── docs/                # Documentação do projeto
+│   ├── INSTALL.md       # Instruções de instalação
+│   ├── API.md           # Documentação da API
+│   └── FEATURES.md      # Melhorias implementadas
+│   └── README.md        # Visão geral e guia rápido
+├── logs/                # Logs da aplicação
+├── public/              # Arquivos públicos (ponto de entrada)
+│   ├── css/
+│   ├── js/
+│   └── index.php
+├── resources/           # Views e assets
+│   └── views/
+├── routes/              # Definições de rotas
+├── tests/               # Testes da aplicação
+├── xampp/               # Instruções de configuração XAMPP
 ```
 
 ## Boas Práticas Implementadas
@@ -135,31 +145,46 @@ project/
 ### Requisitos
 - PHP 7.4 ou superior
 - MySQL 5.7 ou superior
-- Composer
 - Git
 
-### Configuração
+## Instalação Rápida
+
 1. Clone o repositório
-2. Execute `composer install`
-3. Configure o banco de dados
-4. Execute as migrações
-5. Configure o servidor web
+```bash
+git clone https://github.com/jmaciel02/starwars-api.git
+cd starwars-api
+```
 
-## Ambiente de Produção
+2. Configure o banco de dados
+- Importe `database/install.sql`
+- Configure `config/database.php`
 
-### Requisitos Mínimos
-- Servidor web (Apache/Nginx)
-- PHP 7.4+
-- MySQL 5.7+
-- 512MB RAM
-- SSL recomendado
+3. Configure o servidor web
+- Apache: Configure o VirtualHost
+- PHP built-in: `php -S localhost:8000 -t public`
 
-### Deployment
-1. Clone o repositório
-2. Configure o servidor web
-3. Execute setup.sql
-4. Configure permissões
-5. Teste a aplicação
+4. Acesse a aplicação
+```
+http://localhost:8000
+```
+
+## Exemplos de Uso
+
+### Listar Filmes
+```bash
+curl http://localhost:8000/films
+```
+
+### Ver Detalhes do Filme
+```bash
+curl http://localhost:8000/films/1
+```
+
+### Ver Estatísticas
+```bash
+curl http://localhost:8000/stats
+```
+
 
 ## Monitoramento e Logs
 
@@ -179,22 +204,6 @@ project/
    - Contexto
    - Timestamp
 
-## Considerações de Nível Júnior vs. Pleno
-
-### Aspectos Positivos (Nível Pleno)
-- Uso de padrões de projeto
-- Implementação de SOLID
-- Sistema de cache
-- Tratamento de erros
-- Documentação completa
-- Logs e monitoramento
-
-### Pontos de Melhoria
-- Testes automatizados
-- CI/CD
-- Cache distribuído
-- Containerização completa
-- API RESTful própria
 
 ## Suporte e Manutenção
 
